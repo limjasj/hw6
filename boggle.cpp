@@ -102,7 +102,6 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
         if (prefix.find(word) != prefix.end() && r<size && c<size)
         {
           //in prefix, is not the end
-          //word+=board[r][c];
           if(boggleHelper(dict, prefix, board, word+board[r][c], result, r+dr, c+dc, dr, dc))
           {
             //can make more words
@@ -110,19 +109,21 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
           }
           else //can't make more words
           {
-            //could add for loop to see if the word is already partially in result
             result.insert(word);
             return true;
           }
         }
-        else if(r>=size || c>=size)
+        else 
         {
           //is the end
           result.insert(word);
           return true;			
-        }			
+        }		
+				//is in the dictionary, not in the prefix list, 
+	
 		}
 		else if (r>=size || c>=size) return false;
+    
     if(r==size && c==size)
     {
       	return false;
