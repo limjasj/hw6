@@ -94,4 +94,49 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 {
 //add your solution here!
 
+		unsigned int size=board.size();
+		//word+=board[r][c];
+		//if in dictionary
+		if(word.size() >1 && (dict.find(word) != dict.end()) ) 
+		{
+        if (prefix.find(word) != prefix.end() && r<size && c<size)
+        {
+          //in prefix, is not the end
+          //word+=board[r][c];
+          if(boggleHelper(dict, prefix, board, word+board[r][c], result, r+dr, c+dc, dr, dc))
+          {
+            //can make more words
+            return true;
+          }
+          else //can't make more words
+          {
+            //could add for loop to see if the word is already partially in result
+            result.insert(word);
+            return true;
+          }
+        }
+        else if(r>=size || c>=size)
+        {
+          //is the end
+          result.insert(word);
+          return true;			
+        }			
+		}
+		else if (r>=size || c>=size) return false;
+    if(r==size && c==size)
+    {
+      	return false;
+    }
+		word+=board[r][c];
+    if(r==size || c==size)
+    {
+        if(boggleHelper(dict, prefix, board, word, result, r+dr, c+dc, dr, dc))
+ 				{
+					return true;
+				}
+        else return false;
+    }
+
+		boggleHelper(dict, prefix, board, word, result, r+dr, c+dc, dr, dc);
+		return false;
 }
